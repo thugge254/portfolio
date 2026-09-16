@@ -64,6 +64,27 @@ body {
     text-align: center;
 }
 
+.role-title {
+    font-size: 24px;
+    color: #00cec9;
+    margin-bottom: 20px;
+    min-height: 32px; /* Prevents hero section jitter as text clears */
+}
+
+/* Blinking Cursor Styling */
+.cursor {
+    display: inline-block;
+    color: #00cec9;
+    font-weight: 300;
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 .greeting {
     color: #a4b0be;
     font-size: 18px;

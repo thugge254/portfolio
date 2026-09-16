@@ -1,10 +1,53 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Typewriter Effect for Role Title ---
+  const typedRole = document.getElementById("typed-role");
+  
+  if (typedRole) {
+    const roles = [
+      "Statistician & Data Analyst",
+      "Python & SQL Specialist",
+      "Database Architect",
+      "Dashboard Developer"
+    ];
+    
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 100;
+    const deletingSpeed = 50;
+    const pauseTime = 2000;
+
+    function typeEffect() {
+      const currentRole = roles[roleIndex];
+
+      if (isDeleting) {
+        typedRole.textContent = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typedRole.textContent = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let timeout = isDeleting ? deletingSpeed : typingSpeed;
+
+      if (!isDeleting && charIndex === currentRole.length) {
+        timeout = pauseTime;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        timeout = 500;
+      }
+
+      setTimeout(typeEffect, timeout);
+    }
+
+    typeEffect();
+  }
+
   // --- 1. Back to Top Button Functionality ---
   const scrollTopBtn = document.getElementById("scrollTopBtn");
-
   if (scrollTopBtn) {
-
-    // Show/hide button based on scroll position
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
         scrollTopBtn.classList.add("show");
@@ -13,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Smooth scroll back to top on click
     scrollTopBtn.addEventListener("click", () => {
       window.scrollTo({
         top: 0,
@@ -22,9 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 2. Navbar Smooth Scrolling Offset (Optional Fix for Sticky Navbars) ---
+  // --- 2. Navbar Smooth Scrolling Offset ---
   const navLinks = document.querySelectorAll("nav a[href^='#']");
-
   navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -41,5 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// update footer copyright year
-document.getElementById("year").textContent = new Date().getFullYear();
+// Update footer copyright year
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
