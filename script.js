@@ -1,5 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Typewriter Effect for Role Title ---
+  // --- Filter Tools & Technologies ---
+const filterBtns = document.querySelectorAll(".filter-btn");
+const toolCards = document.querySelectorAll(".tool-card");
+
+filterBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    // Active state toggling
+    filterBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.getAttribute("data-filter");
+
+    // Show/Hide card items
+    toolCards.forEach(card => {
+      const category = card.getAttribute("data-category");
+      if (filter === "all" || filter === category) {
+        card.classList.remove("hide");
+      } else {
+        card.classList.add("hide");
+      }
+    });
+  });
+});
+  // --- Typewriter Effect for Role Title
   const typedRole = document.getElementById("typed-role");
   
   if (typedRole) {
@@ -45,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     typeEffect();
   }
 
-  // --- 1. Back to Top Button Functionality ---
+  // --- 1. Back to Top Button Functionality
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   if (scrollTopBtn) {
     window.addEventListener("scroll", () => {
